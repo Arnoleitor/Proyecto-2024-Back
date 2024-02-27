@@ -1,4 +1,4 @@
-const User = require('../models/users');  // Asegúrate de importar correctamente el modelo 'user'
+const User = require('../models/users');
 
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
