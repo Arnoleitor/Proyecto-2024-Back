@@ -6,8 +6,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const authRoutes = require('./app/routes/authRoutes');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 dotenv.config();
+app.use(cors());
 
 app.use(express.json());
 // Conexión a MongoDB utilizando la variable de entorno
