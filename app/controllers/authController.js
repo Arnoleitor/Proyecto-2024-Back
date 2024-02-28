@@ -22,12 +22,14 @@ const login = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
+
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' });
-        res.status(200).json({ token });
+
+        const token = jwt.sign({ userId: user._id, role: user.Roles }, process.env.JWT_SECRET, { expiresIn: '24h' });
+        res.status(200).json({ token, role: user.Roles });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
