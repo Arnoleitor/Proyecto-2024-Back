@@ -14,4 +14,7 @@ router.post('/anadirProducto', adminController.anadirProducto);
 // Recibir productos
 router.get('/recibirProducto', adminController.getProductos);
 
+// Eliminar un usuario por ID
+router.delete('/users/:id', adminController.deleteUser);
+
 module.exports = router;

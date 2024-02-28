@@ -1,11 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const authRoutes = require('./app/routes/authRoutes');
 const dotenv = require('dotenv');
-const cors = require('cors');
 const adminRoutes = require('./app/routes/adminRoutes');
+const userRoutes = require('./app/routes/userRoutes');
 
 dotenv.config();
 app.use(cors());
@@ -23,11 +24,9 @@ db.on('error', (error) => {
 db.once('open', () => {
   console.log('Conexión a MongoDB establecida');
 
-  // Importa las rutas de usuarios
-  const userRoutes = require('./app/routes/userRoutes');
 
   // Usa las rutas de usuarios
-  app.use('/api/user', userRoutes);
+  app.use('/api/users', userRoutes);
 
   // Usa las rutas de admin bajo /api
   app.use('/api', adminRoutes);

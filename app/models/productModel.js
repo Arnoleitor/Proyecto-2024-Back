@@ -7,6 +7,6 @@ const productSchema = new mongoose.Schema({
   imagen: Buffer,
 });
 
-const Product = mongoose.model('componentes', productSchema);
+const Producto = mongoose.model('componentes', productSchema);
 
-module.exports = Product;
+module.exports = Producto;

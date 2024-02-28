@@ -39,7 +39,7 @@ const anadirProducto = async (req, res) => {
       const imagenBuffer = Buffer.from(imagenBase64, 'base64');
   
       // Crear un nuevo producto con la imagen en formato Buffer
-      const nuevoProducto = new Product({
+      const nuevoProducto = new Producto({
         tipo,
         descripcion,
         precio,
@@ -55,5 +55,25 @@ const anadirProducto = async (req, res) => {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   };
+
+  // Eliminar un usuario por ID
+  const deleteUser = async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log('Deleting user with ID:', id);
   
-  module.exports = { getUsers, getPedidos, anadirProducto, getProductos };
+      const deletedUser = await User.findByIdAndDelete(id);
+  
+      if (!deletedUser) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+      }
+  
+      res.json({ message: 'Usuario eliminado correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar usuario:', error.message);
+      res.status(500).json({ error: error.message });
+    }
+  }
+  
+  
+  module.exports = { getUsers, getPedidos, anadirProducto, getProductos, deleteUser };
