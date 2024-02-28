@@ -1,5 +1,3 @@
-// Carga las variables de entorno desde el archivo .env
-
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
@@ -7,15 +5,14 @@ const PORT = process.env.PORT || 3000;
 const authRoutes = require('./app/routes/authRoutes');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const adminRoutes = require('./app/routes/adminRoutes');
 
 dotenv.config();
 app.use(cors());
-
 app.use(express.json());
-// Conexión a MongoDB utilizando la variable de entorno
-mongoose.connect(process.env.DB_CONNECTION_STRING, {
 
-});
+// Conexión a MongoDB utilizando la variable de entorno
+mongoose.connect(process.env.DB_CONNECTION_STRING, {});
 
 const db = mongoose.connection;
 
@@ -30,7 +27,10 @@ db.once('open', () => {
   const userRoutes = require('./app/routes/userRoutes');
 
   // Usa las rutas de usuarios
-  app.use('/api', userRoutes);
+  app.use('/api/user', userRoutes);
+
+  // Usa las rutas de admin bajo /api
+  app.use('/api', adminRoutes);
 
   // Ruta principal
   app.get('/', (req, res) => {
@@ -52,8 +52,8 @@ db.once('open', () => {
   });
 });
 
- // Manejar SIGINT
- process.on('SIGINT', () => {
+// Manejar SIGINT
+process.on('SIGINT', () => {
   mongoose.connection.close(() => {
     console.log('Conexión a MongoDB cerrada');
     server.close(() => {

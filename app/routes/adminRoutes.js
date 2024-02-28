@@ -9,6 +9,9 @@ router.get('/users', adminController.getUsers);
 router.get('/pedidos', adminController.getPedidos);
 
 // Agregar productos
-router.post('/add-producto', adminController.addProducto);
+router.post('/anadirProducto', adminController.anadirProducto);
+
+// Recibir productos
+router.get('/recibirProducto', adminController.getProductos);
 
 module.exports = router;
