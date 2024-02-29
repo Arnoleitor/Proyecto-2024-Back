@@ -21,13 +21,24 @@ const getPedidos = async (req, res) => {
 };
 
 const getProductos = async (req, res) => {
-    try {
-      const productos = await Producto.find({});
-      res.status(200).json(productos);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+  try {
+    const productos = await Producto.find({});
+    
+    const productosConImagenBase64 = productos.map(producto => {
+      const imagenBase64 = producto.imagen.toString('base64');
+      return {
+        ...producto.toObject(),
+        imagen: `data:image/png;base64,${imagenBase64}`,
+      };
+    });
+
+    res.status(200).json(productosConImagenBase64);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
+
+module.exports = { getProductos };
 
 module.exports = { getProductos };
 
