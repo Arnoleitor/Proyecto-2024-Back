@@ -38,10 +38,6 @@ const getProductos = async (req, res) => {
   }
 };
 
-module.exports = { getProductos };
-
-module.exports = { getProductos };
-
 const anadirProducto = async (req, res) => {
     try {
       const { tipo, descripcion, precio, imagenBase64 } = req.body;
