@@ -37,24 +37,6 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Actualizar un usuario por ID
-exports.updateUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
-
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'Usuario no encontrado' });
-    }
-
-    res.json(updatedUser);
-  } catch (error) {
-    console.error('Error al actualizar usuario:', error.message);
-    res.status(500).json({ error: error.message });
-  }
-};
-
-
 // Eliminar un usuario por ID
 exports.deleteUser = async (req, res) => {
   try {

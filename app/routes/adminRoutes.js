@@ -20,5 +20,8 @@ router.delete('/deleteProducto/:id', adminController.deleteProducto);
 // Eliminar un usuario por ID
 router.delete('/users/:id', adminController.deleteUser);
 
+// Actualizar un usuario por ID
+router.put('/users/:id', adminController.updateUser);
+
 
 module.exports = router;
