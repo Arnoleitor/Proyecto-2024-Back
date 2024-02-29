@@ -56,6 +56,25 @@ const anadirProducto = async (req, res) => {
     }
   };
 
+  // Eliminar un producto por ID
+  const deleteProducto = async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log('Deleting producto with ID:', id);
+  
+      const productoEliminado = await Producto.findByIdAndDelete(id);
+  
+      if (!productoEliminado) {
+        return res.status(404).json({ message: 'Producto no encontrado' });
+      }
+  
+      res.json({ message: 'Producto eliminado correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar Producto:', error.message);
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   // Eliminar un usuario por ID
   const deleteUser = async (req, res) => {
     try {
@@ -76,4 +95,4 @@ const anadirProducto = async (req, res) => {
   }
   
   
-  module.exports = { getUsers, getPedidos, anadirProducto, getProductos, deleteUser };
+  module.exports = { getUsers, getPedidos, anadirProducto, getProductos, deleteUser, deleteProducto };

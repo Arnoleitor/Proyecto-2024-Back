@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const authRoutes = require('./app/routes/authRoutes');
 const dotenv = require('dotenv');
+const authRoutes = require('./app/routes/authRoutes');
 const adminRoutes = require('./app/routes/adminRoutes');
 const userRoutes = require('./app/routes/userRoutes');
 
