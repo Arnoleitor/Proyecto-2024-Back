@@ -8,6 +8,7 @@ const authRoutes = require('./app/routes/authRoutes');
 const adminRoutes = require('./app/routes/adminRoutes');
 const userRoutes = require('./app/routes/userRoutes');
 const tiposViasRoutes = require('./app/routes/tiposViaRoutes');
+const pedidosRoutes = require('./app/routes/pedidosRoutes'); 
 
 dotenv.config();
 app.use(cors());
@@ -25,6 +26,10 @@ db.on('error', (error) => {
 db.once('open', () => {
   console.log('Conexión a MongoDB establecida');
 
+  // Ruta principal
+  app.get('/', (req, res) => {
+    res.send('¡Bienvenido a mi aplicación!');
+  });
 
   // Usa las rutas de usuarios
   app.use('/api/users', userRoutes);
@@ -32,16 +37,14 @@ db.once('open', () => {
   // Usa las rutas de admin bajo /api
   app.use('/api', adminRoutes);
 
-  // Ruta principal
-  app.get('/', (req, res) => {
-    res.send('¡Bienvenido a mi aplicación!');
-  });
-
   // Ruta Autentificación
   app.use('/auth', authRoutes);
 
   //Ruta tipos de via
-  app.use('/api', tiposViasRoutes); 
+  app.use('/api', tiposViasRoutes);
+
+  //Ruta Pedidos
+  app.use('/api', pedidosRoutes); 
 
   // Middleware para manejo de errores
   app.use((err, req, res, next) => {

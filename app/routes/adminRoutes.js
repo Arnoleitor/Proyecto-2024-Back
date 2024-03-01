@@ -6,7 +6,7 @@ const adminController = require('../controllers/adminController');
 router.get('/users', adminController.getUsers);
 
 // Ver pedidos realizados
-router.get('/pedidos', adminController.getPedidos);
+router.get('/pedidosAdmin', adminController.getPedidos);
 
 // Agregar productos
 router.post('/anadirProducto', adminController.anadirProducto);

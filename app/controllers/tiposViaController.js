@@ -1,7 +1,6 @@
 const TipoVia = require('../models/tipoViaModel');
 
 const obtenerTiposDeVias = async (req, res) => {
-  console.log("🚀 ~ obtenerTiposDeVias ~ req:", req)
   try {
     const tiposDeVias = await TipoVia.find();
     res.json(tiposDeVias);
