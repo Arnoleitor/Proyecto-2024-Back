@@ -4,7 +4,7 @@ const Producto = require('../models/productModel');
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find({}, 'username email Roles direccion');
+    const users = await User.find({}, 'username email Roles direccion tipoVia');
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -105,7 +105,7 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { username, email, password, Roles, direccion } = req.body;
+    const { username, email, password, Roles, direccion, tipoVia } = req.body;
 
     // Verificar si el usuario existe
     const existingUser = await User.findById(id);
@@ -119,6 +119,7 @@ const updateUser = async (req, res) => {
     existingUser.password = password || existingUser.password;
     existingUser.Roles = Roles || existingUser.Roles;
     existingUser.direccion = direccion || existingUser.direccion;
+    existingUser.tipoVia = tipoVia || existingUser.tipoVia;
 
     // Guardar los cambios
     await existingUser.save();
