@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./app/routes/authRoutes');
 const adminRoutes = require('./app/routes/adminRoutes');
 const userRoutes = require('./app/routes/userRoutes');
+const tiposViasRoutes = require('./app/routes/tiposViaRoutes');
 
 dotenv.config();
 app.use(cors());
@@ -38,6 +39,9 @@ db.once('open', () => {
 
   // Ruta Autentificación
   app.use('/auth', authRoutes);
+
+  //Ruta tipos de via
+  app.use('/api', tiposViasRoutes); 
 
   // Middleware para manejo de errores
   app.use((err, req, res, next) => {
