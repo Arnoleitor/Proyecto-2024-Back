@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const pedidosSchema = new mongoose.Schema({
-    idUser: String,
+    id: String,
     productos: [{
-        id: Number,
+        id: String,
         cantidad: Number
     }],
     totalImporte: Number
