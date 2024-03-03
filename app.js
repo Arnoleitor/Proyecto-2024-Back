@@ -8,9 +8,13 @@ const authRoutes = require('./app/routes/authRoutes');
 const adminRoutes = require('./app/routes/adminRoutes');
 const userRoutes = require('./app/routes/userRoutes');
 const tiposViasRoutes = require('./app/routes/tiposViaRoutes');
-const pedidosRoutes = require('./app/routes/pedidosRoutes'); 
+const pedidosRoutes = require('./app/routes/pedidosRoutes');
 const tiposProductoRoutes = require('./app/routes/tiposProductoRoutes');
+const bodyParser = require('body-parser');
 
+// Configuración del límite de tamaño a 10 MB
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 dotenv.config();
 app.use(cors());
 app.use(express.json());

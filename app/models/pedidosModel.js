@@ -10,7 +10,8 @@ const pedidosSchema = new mongoose.Schema({
     fecha: {
         type: Date,
         default: Date.now
-    }
+    },
+    direccion: String
 });
 
 const Pedidos = mongoose.model('pedidos', pedidosSchema);
