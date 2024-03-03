@@ -38,26 +38,30 @@ const getFactura = async (req, res) => {
     let productosHtmlElement = "";
 
     if (factura[0]?.productos?.length) {
+      productosHtmlElement += `<h2 style="font-weight: bold; text-align: left; padding: 30px;">Productos:</h2>`;
       factura[0].productos.forEach(element => {
-        let elemento = `<p>Unidad/es: x ${element.cantidad} - ${element.descripcion}</p>`;
+        let elemento = `
+          <div style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #000;">
+            <p>Unidad/es: x ${element.cantidad} - ${element.descripcion}</p>
+          </div>`;
         productosHtmlElement += elemento;
       });
     } else {
-      let elemento = `<p>Sin productos</p>`;
-      productosHtmlElement += elemento;
+      productosHtmlElement = `<p style="font-weight: bold; text-align: left;">Sin productos</p>`;
     }
 
     let contenido = `
-      <h1>PCPiezas tu tienda de componentes</h1>
-      <p>Dirección de envío: ${factura[0].direccion}</p>
-      <p>Productos:</p>
-      ${productosHtmlElement}
-      <p>Importe total: ${factura[0].totalImporte} €</p>
-      <p>Teléfono de contacto: 999777666</p>
-    `;
+      <div style="text-align: left; padding: 30px;">
+        <h1 style="font-weight: bold;">PCPiezas tu tienda de componentes</h1>
+        <h5>Dirección de envío: ${factura[0].direccion}</h5>
+        ${productosHtmlElement}
+        <h3 style="text-align: center; margin-top: 20px; text-decoration: underline;">Importe total: ${factura[0].totalImporte} €</h3>
+        <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
+        <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
+      </div>`;
 
     res.setHeader('Content-type', 'application/pdf');
-    pdf.create(contenido).toStream(function (err, stream) {
+    pdf.create(contenido, { format: 'Letter' }).toStream(function (err, stream) {
       if (err) return res.send(err);
       res.type('pdf');
       stream.pipe(res);
@@ -66,7 +70,6 @@ const getFactura = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
-
 
 
 module.exports = { getPedidos, postPedidos, getPedidosByUserId, getFactura };
