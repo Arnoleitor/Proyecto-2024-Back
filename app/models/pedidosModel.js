@@ -4,7 +4,8 @@ const pedidosSchema = new mongoose.Schema({
     id: String,
     productos: [{
         id: String,
-        cantidad: Number
+        cantidad: Number,
+        descripcion: String
     }],
     totalImporte: Number,
     fecha: {
