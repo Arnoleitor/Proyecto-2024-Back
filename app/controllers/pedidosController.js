@@ -38,7 +38,7 @@ const getFactura = async (req, res) => {
     let productosHtmlElement = "";
 
     if (factura[0]?.productos?.length) {
-      productosHtmlElement += `<h2 style="font-weight: bold; text-align: left; padding: 30px;">Productos:</h2>`;
+      productosHtmlElement += `<h2 style="font-weight: bold; text-align: left;">Productos:</h2>`;
       factura[0].productos.forEach(element => {
         let elemento = `
           <div style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #000;">
