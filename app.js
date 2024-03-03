@@ -9,6 +9,7 @@ const adminRoutes = require('./app/routes/adminRoutes');
 const userRoutes = require('./app/routes/userRoutes');
 const tiposViasRoutes = require('./app/routes/tiposViaRoutes');
 const pedidosRoutes = require('./app/routes/pedidosRoutes'); 
+const tiposProductoRoutes = require('./app/routes/tiposProductoRoutes');
 
 dotenv.config();
 app.use(cors());
@@ -44,7 +45,10 @@ db.once('open', () => {
   app.use('/api', tiposViasRoutes);
 
   //Ruta Pedidos
-  app.use('/api', pedidosRoutes); 
+  app.use('/api', pedidosRoutes);
+
+  // Ruta agregar Productos
+  app.use('/api', tiposProductoRoutes);
 
   // Middleware para manejo de errores
   app.use((err, req, res, next) => {

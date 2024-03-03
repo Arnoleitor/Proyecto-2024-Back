@@ -6,7 +6,11 @@ const pedidosSchema = new mongoose.Schema({
         id: String,
         cantidad: Number
     }],
-    totalImporte: Number
+    totalImporte: Number,
+    fecha: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const Pedidos = mongoose.model('pedidos', pedidosSchema);

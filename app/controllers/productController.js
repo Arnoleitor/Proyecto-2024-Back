@@ -1,0 +1,13 @@
+const Producto = require('../models/productModel');
+
+const postProducto = async (req, res) => {
+    try {
+      const newProducto = new Producto(req.body);
+      await newProducto.save();
+      res.json(newProducto);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
+  module.exports = { postProducto };
