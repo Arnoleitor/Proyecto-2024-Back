@@ -1,5 +1,7 @@
 const Pedidos = require('../models/pedidosModel');
 const pdf = require('html-pdf');
+const fs = require('fs');
+const path = require('path');
 
 const getPedidos = async (req, res) => {
   try {
@@ -34,6 +36,8 @@ const getFactura = async (req, res) => {
   try {
     const _id = req.query.id;
     const factura = await Pedidos.find({ _id: _id });
+    const rutaImagenLocal = path.join(__dirname, '../assets/img/LogoFactura.png');
+    const imagenBase64 = fs.readFileSync(rutaImagenLocal, { encoding: 'base64' });
 
     let productosHtmlElement = "";
 
@@ -49,9 +53,10 @@ const getFactura = async (req, res) => {
     } else {
       productosHtmlElement = `<p style="font-weight: bold; text-align: left;">Sin productos</p>`;
     }
-
+    
     let contenido = `
-      <div style="text-align: left; padding: 30px;">
+    <div style="text-align: left; padding: 30px; background-color: GhostWhite;">
+    <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 100px; height: auto;" />
         <h1 style="font-weight: bold;">PCPiezas tu tienda de componentes</h1>
         <h5>Dirección de envío: ${factura[0].direccion}</h5>
         ${productosHtmlElement}
@@ -70,6 +75,7 @@ const getFactura = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
 
 
 module.exports = { getPedidos, postPedidos, getPedidosByUserId, getFactura };
