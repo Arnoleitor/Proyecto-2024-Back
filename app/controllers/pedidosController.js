@@ -36,7 +36,7 @@ const getFactura = async (req, res) => {
   try {
     const _id = req.query.id;
     const factura = await Pedidos.find({ _id: _id });
-    const rutaImagenLocal = path.join(__dirname, '../assets/img/LogoFactura.png');
+    const rutaImagenLocal = path.join(__dirname, '../assets/img/LogoFactura-removebg-preview.png');
     const imagenBase64 = fs.readFileSync(rutaImagenLocal, { encoding: 'base64' });
 
     let productosHtmlElement = "";
@@ -46,24 +46,27 @@ const getFactura = async (req, res) => {
       factura[0].productos.forEach(element => {
         let elemento = `
           <div style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #000;">
-            <p>Unidad/es: x ${element.cantidad} - ${element.descripcion} </p> *Importe:<strong> ${element.precio} €</strong>
+            <p>Unidad/es: x ${element.cantidad} - ${element.descripcion} </p> *Importe por unidad:<strong> ${element.precio} €</strong>
           </div>`;
         productosHtmlElement += elemento;
       });
     } else {
       productosHtmlElement = `<p style="font-weight: bold; text-align: left;">Sin productos</p>`;
     }
-    
+
     let contenido = `
-    <div style="text-align: left; padding: 30px; background-color: GhostWhite;">
+    <div style="text-align: left; padding: 30px; background-color: AliceBlue;">
     <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 100px; height: auto;" />
-        <h1 style="font-weight: bold;">PCPiezas tu tienda de componentes</h1>
-        <h5>Dirección de envío: ${factura[0].direccion}</h5>
-        ${productosHtmlElement}
-        <h3 style="text-align: center; margin-top: 20px; text-decoration: underline;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
-        <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
-        <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
-      </div>`;
+    <h1 style="font-weight: bold;">PCPiezas tu tienda de componentes</h1>
+    <h3>FACTURA</h3>
+    <p>Fecha: ${new Date().toLocaleDateString()}</p>
+    <h5>Dirección de envío: ${factura[0].direccion}</h5>
+    ${productosHtmlElement}
+    <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
+    <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
+    <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
+    <p style="text-align: right;">¡Gracias por elegir PCPiezas!</p>
+  </div>`;
 
     res.setHeader('Content-type', 'application/pdf');
     pdf.create(contenido, { format: 'Letter' }).toStream(function (err, stream) {
