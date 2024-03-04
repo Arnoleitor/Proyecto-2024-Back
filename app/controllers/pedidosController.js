@@ -41,36 +41,36 @@ const getFactura = async (req, res) => {
 
     let productosHtmlElement = "";
 
-    if (factura[0]?.productos?.length) {
-      productosHtmlElement += `<h2 style="font-weight: bold; text-align: left;">Productos:</h2>`;
-      factura[0].productos.forEach(element => {
-        let importeTotal = element.cantidad * element.precio;
-        let elemento = `
-          <div style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #000;">
-            <p>Unidad/es: x ${element.cantidad} - ${element.descripcion}</p>
-            <p>Precio por unidad: <strong>${element.precio} €</strong></p>
-            <p>Precio total: <strong>${importeTotal} €</strong></p>
-          </div>`;
-        productosHtmlElement += elemento;
-      });
-    } else {
-      productosHtmlElement = `<p style="font-weight: bold; text-align: left;">Sin productos</p>`;
-    }
-    
-    let contenido = `
-    <div style="text-align: left; padding: 30px; background-color: AliceBlue;">
-      <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 100px; height: auto;" />
-      <h1 style="font-weight: bold; text-align: center;">PCPiezas tu tienda de componentes</h1>
-      <h3 style="text-align: center; text-decoration: underline; font-weight: bold;">FACTURA</h3>
-      <p>Fecha: ${new Date().toLocaleDateString()}</p>
-      <h5>Dirección de envío: ${factura[0].direccion}</h5>
-      ${productosHtmlElement}
-      <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
-      <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
-      <p style="text-align: left; font-size: small;">Ten este identificador a mano en el caso que necesites ayuda con el pedido</p>
-      <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
-      <p style="text-align: right;">¡Gracias por elegir PCPiezas!</p>
-    </div>`;
+if (factura[0]?.productos?.length) {
+  productosHtmlElement += `<h2 style="font-weight: bold; text-align: left;">Productos:</h2>`;
+  factura[0].productos.forEach(element => {
+    let precioTotal = element.cantidad * element.precio;
+    let elemento = `
+      <div style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #000;">
+        <p>Unidad/es: x ${element.cantidad} - ${element.descripcion} </p>
+        <p style="text-align: right;">Precio por unidad: <strong>${element.precio} €</strong> - Precio total: <strong>${precioTotal} €</strong></p>
+      </div>`;
+    productosHtmlElement += elemento;
+  });
+} else {
+  productosHtmlElement = `<p style="font-weight: bold; text-align: left;">Sin productos</p>`;
+}
+
+let contenido = `
+<div style="text-align: left; padding: 30px; background-color: AliceBlue;">
+  <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 100px; height: auto;" />
+  <h1 style="font-weight: bold; text-align: center;">PCPiezas tu tienda de componentes</h1>
+  <h3 style="text-align: center; text-decoration: underline; font-weight: bold;">FACTURA</h3>
+  <p>Fecha: ${new Date().toLocaleDateString()}</p>
+  <h5>Dirección de envío: ${factura[0].direccion}</h5>
+  ${productosHtmlElement}
+  <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
+  <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
+  <p style="text-align: left; font-size: 10px; margin-top: 5px;">Ten este identificador a mano en el caso que necesites ayuda con el pedido</p>
+  <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
+  <p style="text-align: right;">¡Gracias por elegir PCPiezas!</p>
+</div>`;
+
 
     res.setHeader('Content-type', 'application/pdf');
     pdf.create(contenido, { format: 'Letter' }).toStream(function (err, stream) {
