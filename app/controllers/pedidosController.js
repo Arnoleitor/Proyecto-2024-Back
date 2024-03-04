@@ -57,20 +57,19 @@ if (factura[0]?.productos?.length) {
 }
 
 let contenido = `
-<div style="text-align: left; padding: 30px; background-color: AliceBlue;">
-  <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 100px; height: auto;" />
-  <h1 style="font-weight: bold; text-align: center;">PCPiezas tu tienda de componentes</h1>
-  <h3 style="text-align: center; text-decoration: underline; font-weight: bold;">FACTURA</h3>
-  <p>Fecha: ${new Date().toLocaleDateString()}</p>
-  <h5>Dirección de envío: ${factura[0].direccion}</h5>
-  ${productosHtmlElement}
-  <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
-  <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
-  <p style="text-align: left; font-size: 10px; margin-top: 5px;">Ten este identificador a mano en el caso que necesites ayuda con el pedido</p>
-  <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
-  <p style="text-align: right;">¡Gracias por elegir PCPiezas!</p>
-</div>`;
-
+    <div style="text-align: left; padding: 80px; background-color: AliceBlue;">
+      <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 100px; height: auto;" />
+      <h1 style="font-weight: bold; text-align: center;">PCPiezas tu tienda de componentes</h1>
+      <h3 style="text-align: center; text-decoration: underline; font-weight: bold;">FACTURA</h3>
+      <p>Fecha: ${new Date().toLocaleDateString()}</p>
+      <h5>Dirección de envío: ${factura[0].direccion}</h5>
+      ${productosHtmlElement}
+      <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
+      <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
+      <p style="text-align: left; font-size: 10px; margin-top: 5px;">Ten este identificador a mano en el caso que necesites ayuda con el pedido.</p>
+      <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
+      <p style="text-align: right;">¡Gracias por elegir PCPiezas!</p>
+    </div>`;
 
     res.setHeader('Content-type', 'application/pdf');
     pdf.create(contenido, { format: 'Letter' }).toStream(function (err, stream) {

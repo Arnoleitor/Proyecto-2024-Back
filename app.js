@@ -10,11 +10,11 @@ const userRoutes = require('./app/routes/userRoutes');
 const tiposViasRoutes = require('./app/routes/tiposViaRoutes');
 const pedidosRoutes = require('./app/routes/pedidosRoutes');
 const tiposProductoRoutes = require('./app/routes/tiposProductoRoutes');
-const bodyParser = require('body-parser');
+const productRoutes = require('./app/routes/productRoutes');
 
 // Configuración del límite de tamaño a 10 MB
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 dotenv.config();
 app.use(cors());
 app.use(express.json());
@@ -51,8 +51,10 @@ db.once('open', () => {
   //Ruta Pedidos
   app.use('/api', pedidosRoutes);
 
-  // Ruta agregar Productos
+  // Ruta tipos de producto
   app.use('/api', tiposProductoRoutes);
+
+  app.use('/api', productRoutes);
 
   // Middleware para manejo de errores
   app.use((err, req, res, next) => {

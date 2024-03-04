@@ -38,30 +38,30 @@ const getProductos = async (req, res) => {
   }
 };
 
-const anadirProducto = async (req, res) => {
-  try {
-    const { tipo, descripcion, precio, imagenBase64 } = req.body;
+// const anadirProducto = async (req, res) => {
+//   try {
+//     const { tipo, descripcion, precio, imagenBase64 } = req.body;
 
-    // Decodificar la imagen en base64 a Buffer
-    const imagenBuffer = Buffer.from(imagenBase64, 'base64');
+//     // Decodificar la imagen en base64 a Buffer
+//     const imagenBuffer = Buffer.from(imagenBase64, 'base64');
 
-    // Crear un nuevo producto con la imagen en formato Buffer
-    const nuevoProducto = new Producto({
-      tipo,
-      descripcion,
-      precio,
-      imagen: imagenBuffer,
-    });
+//     // Crear un nuevo producto con la imagen en formato Buffer
+//     const nuevoProducto = new Producto({
+//       tipo,
+//       descripcion,
+//       precio,
+//       imagen: imagenBuffer,
+//     });
 
-    // Guardar el producto en la base de datos
-    await nuevoProducto.save();
+//     // Guardar el producto en la base de datos
+//     await nuevoProducto.save();
 
-    res.status(201).json({ mensaje: 'Producto añadido correctamente' });
-  } catch (error) {
-    console.error('Error al añadir producto:', error.message);
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-};
+//     res.status(201).json({ mensaje: 'Producto añadido correctamente' });
+//   } catch (error) {
+//     console.error('Error al añadir producto:', error.message);
+//     res.status(500).json({ error: 'Error interno del servidor' });
+//   }
+// };
 
 // Eliminar un producto por ID
 const deleteProducto = async (req, res) => {
@@ -133,4 +133,4 @@ const updateUser = async (req, res) => {
 
 
 
-module.exports = { getUsers, getPedidos, anadirProducto, getProductos, deleteUser, deleteProducto, updateUser };
+module.exports = { getUsers, getPedidos, getProductos, deleteUser, deleteProducto, updateUser };
