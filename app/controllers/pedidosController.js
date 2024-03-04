@@ -42,7 +42,7 @@ const getFactura = async (req, res) => {
       factura[0].productos.forEach(element => {
         let elemento = `
           <div style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #000;">
-            <p>Unidad/es: x ${element.cantidad} - ${element.descripcion}</p>
+            <p>Unidad/es: x ${element.cantidad} - ${element.descripcion} </p> *Importe:<strong> ${element.precio} €</strong>
           </div>`;
         productosHtmlElement += elemento;
       });
@@ -55,7 +55,7 @@ const getFactura = async (req, res) => {
         <h1 style="font-weight: bold;">PCPiezas tu tienda de componentes</h1>
         <h5>Dirección de envío: ${factura[0].direccion}</h5>
         ${productosHtmlElement}
-        <h3 style="text-align: center; margin-top: 20px; text-decoration: underline;">Importe total: ${factura[0].totalImporte} €</h3>
+        <h3 style="text-align: center; margin-top: 20px; text-decoration: underline;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
         <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
         <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>
       </div>`;
