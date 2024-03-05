@@ -11,6 +11,7 @@ const tiposViasRoutes = require('./app/routes/tiposViaRoutes');
 const pedidosRoutes = require('./app/routes/pedidosRoutes');
 const tiposProductoRoutes = require('./app/routes/tiposProductoRoutes');
 const productRoutes = require('./app/routes/productRoutes');
+const comentariosRoutes = require('./app/routes/comentariosRoutes');
 
 // Configuración del límite de tamaño a 10 MB
 app.use(express.json({ limit: '10mb' }));
@@ -54,7 +55,11 @@ db.once('open', () => {
   // Ruta tipos de producto
   app.use('/api', tiposProductoRoutes);
 
+// Ruta de producto
   app.use('/api', productRoutes);
+
+  // Ruta de comentarios
+  app.use('/api', comentariosRoutes);
 
   // Middleware para manejo de errores
   app.use((err, req, res, next) => {
