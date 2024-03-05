@@ -25,12 +25,12 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, {});
 
 const db = mongoose.connection;
 
-db.on('error', (error) => {
-  console.error('Error al conectar con MongoDB:', error);
-});
+  db.on('error', (error) => {
+    console.error('Error al conectar con MongoDB:', error);
+  });
 
-db.once('open', () => {
-  console.log('Conexión a MongoDB establecida');
+  db.once('open', () => {
+    console.log('Conexión a MongoDB establecida');
 
   // Ruta principal
   app.get('/', (req, res) => {
@@ -55,7 +55,7 @@ db.once('open', () => {
   // Ruta tipos de producto
   app.use('/api', tiposProductoRoutes);
 
-// Ruta de producto
+  // Ruta de producto
   app.use('/api', productRoutes);
 
   // Ruta de comentarios
@@ -70,16 +70,16 @@ db.once('open', () => {
   // Inicia el servidor
   app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
+   });
   });
-});
 
-// Manejar SIGINT
-process.on('SIGINT', () => {
-  mongoose.connection.close(() => {
-    console.log('Conexión a MongoDB cerrada');
-    server.close(() => {
-      console.log('Servidor detenido');
-      process.exit(0);
+  // Manejar SIGINT
+  process.on('SIGINT', () => {
+    mongoose.connection.close(() => {
+      console.log('Conexión a MongoDB cerrada');
+      server.close(() => {
+        console.log('Servidor detenido');
+        process.exit(0);
+      });
     });
   });
-});

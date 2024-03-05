@@ -27,8 +27,11 @@ const obtenerComentariosPorId = async (req, res) => {
 
 const agregarComentarios = async (req, res) => {
     try {
-      const { idProducto, comentario, idUsuario, valoracion } = req.body;
-  
+      const { idProducto, comentario, idUsuario, valoracion, nombreUsuario } = req.body;
+      const comentarios = await Comentario.find({ idProducto, idUsuario });
+      if(comentarios.length){
+        return res.status(200).json({ error: 'Ya has valorado este producto!' });
+      }
       const nuevoComentario = new Comentario({
         idProducto,
         comentario,
