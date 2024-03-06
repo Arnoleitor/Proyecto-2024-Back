@@ -8,9 +8,6 @@ router.get('/users', adminController.getUsers);
 // Ver pedidos realizados
 router.get('/pedidosAdmin', adminController.getPedidos);
 
-// // Agregar productos
-// router.post('/anadirProducto', adminController.anadirProducto);
-
 // Recibir productos
 router.get('/recibirProducto', adminController.getProductos);
 

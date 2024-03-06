@@ -1,5 +1,4 @@
 const User = require('../models/users');
-// const Pedido = require('../models/pedidos');
 const Producto = require('../models/productModel');
 
 const getUsers = async (req, res) => {
@@ -11,6 +10,7 @@ const getUsers = async (req, res) => {
   }
 };
 
+//Recibir los pedidos
 const getPedidos = async (req, res) => {
   try {
     const pedidos = await Order.find();
@@ -20,6 +20,7 @@ const getPedidos = async (req, res) => {
   }
 };
 
+//Recibir los productos
 const getProductos = async (req, res) => {
   try {
     const productos = await Producto.find({});
@@ -37,31 +38,6 @@ const getProductos = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-// const anadirProducto = async (req, res) => {
-//   try {
-//     const { tipo, descripcion, precio, imagenBase64 } = req.body;
-
-//     // Decodificar la imagen en base64 a Buffer
-//     const imagenBuffer = Buffer.from(imagenBase64, 'base64');
-
-//     // Crear un nuevo producto con la imagen en formato Buffer
-//     const nuevoProducto = new Producto({
-//       tipo,
-//       descripcion,
-//       precio,
-//       imagen: imagenBuffer,
-//     });
-
-//     // Guardar el producto en la base de datos
-//     await nuevoProducto.save();
-
-//     res.status(201).json({ mensaje: 'Producto añadido correctamente' });
-//   } catch (error) {
-//     console.error('Error al añadir producto:', error.message);
-//     res.status(500).json({ error: 'Error interno del servidor' });
-//   }
-// };
 
 // Eliminar un producto por ID
 const deleteProducto = async (req, res) => {

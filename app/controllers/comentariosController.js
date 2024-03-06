@@ -24,7 +24,6 @@ const obtenerComentariosPorId = async (req, res) => {
   };
   
 
-
 const agregarComentarios = async (req, res) => {
     try {
       const { idProducto, comentario, idUsuario, valoracion, nombreUsuario } = req.body;

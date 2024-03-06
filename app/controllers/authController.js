@@ -6,6 +6,13 @@ const User = require('../models/users');
 const register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
+
+        // Verificar si el correo electrónico ya está registrado
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'El correo electrónico ya está registrado' });
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ username, email, password: hashedPassword, Roles: 2 });
         await newUser.save();
@@ -14,6 +21,7 @@ const register = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 const login = async (req, res) => {
     try {
