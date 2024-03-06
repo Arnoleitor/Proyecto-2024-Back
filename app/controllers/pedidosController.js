@@ -58,7 +58,7 @@ if (factura[0]?.productos?.length) {
 
 let contenido = `
     <div style="text-align: left; padding: 80px; background-color: AliceBlue;">
-      <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 100px; height: auto;" />
+      <img src="data:image/jpeg;base64,${imagenBase64}" style="position: absolute; top: 30px; right: 30px; width: 200px; height: auto;" />
       <h1 style="font-weight: bold; text-align: center;">PCPiezas tu tienda de componentes</h1>
       <h3 style="text-align: center; text-decoration: underline; font-weight: bold;">FACTURA</h3>
       <p>Fecha: ${new Date().toLocaleDateString()}</p>
