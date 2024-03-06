@@ -62,7 +62,7 @@ let contenido = `
       <h1 style="font-weight: bold; text-align: center;">PCPiezas tu tienda de componentes</h1>
       <h3 style="text-align: center; text-decoration: underline; font-weight: bold;">FACTURA</h3>
       <p>Fecha: ${new Date().toLocaleDateString()}</p>
-      <h5>Dirección de envío: ${factura[0].direccion}</h5>
+      <h5>Dirección de envío: ${factura[0].tipoVia} ${factura[0].direccion}</h5>
       ${productosHtmlElement}
       <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
       <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
