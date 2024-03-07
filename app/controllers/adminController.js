@@ -58,6 +58,31 @@ const deleteProducto = async (req, res) => {
   }
 }
 
+// Actualizar un Producto por ID
+const updateProducto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { tipo, descripcion, precio, imagen } = req.body;
+
+    const productoExistente = await Producto.findById(id)
+    if (!productoExistente) {
+      return res.status(404).json({ message: 'producto Existente no encontrado' });
+    }
+
+    productoExistente.tipo = tipo || productoExistente.tipo;
+    productoExistente.descripcion = descripcion || productoExistente.descripcion;
+    productoExistente.precio = precio || productoExistente.precio;
+    productoExistente.imagen = imagen || productoExistente.imagen;
+
+    await productoExistente.save();
+
+    res.json({ message: 'producto existente actualizado correctamente', productoExistente: productoExistente });
+  } catch (error) {
+    console.error('Error al actualizar Producto:', error.message);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Eliminar un usuario por ID
 const deleteUser = async (req, res) => {
   try {
@@ -109,4 +134,4 @@ const updateUser = async (req, res) => {
 
 
 
-module.exports = { getUsers, getPedidos, getProductos, deleteUser, deleteProducto, updateUser };
+module.exports = { getUsers, getPedidos, getProductos, deleteUser, deleteProducto, updateUser, updateProducto };

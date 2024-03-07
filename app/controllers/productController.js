@@ -32,7 +32,7 @@ const getProductosPorTipo = async (req, res) => {
   }
 };
 
-
+// Recibir los productos de forma masiva por excel
 const processExcelAndAddProducts = async (buffer) => {
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(buffer);

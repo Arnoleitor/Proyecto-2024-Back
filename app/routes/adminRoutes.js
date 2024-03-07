@@ -14,6 +14,9 @@ router.get('/recibirProducto', adminController.getProductos);
 // Eliminar un Producto por ID
 router.delete('/deleteProducto/:id', adminController.deleteProducto);
 
+// Actualizar un Producto por ID
+router.put('/productos/:id', adminController.updateProducto);
+
 // Eliminar un usuario por ID
 router.delete('/users/:id', adminController.deleteUser);
 
