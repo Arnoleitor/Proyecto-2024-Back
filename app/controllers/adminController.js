@@ -64,9 +64,10 @@ const updateProducto = async (req, res) => {
     const { id } = req.params;
     const { tipo, descripcion, precio, imagen } = req.body;
 
-    const productoExistente = await Producto.findById(id)
+    const productoExistente = await Producto.findById(id);
+
     if (!productoExistente) {
-      return res.status(404).json({ message: 'producto Existente no encontrado' });
+      return res.status(404).json({ message: 'Producto existente no encontrado' });
     }
 
     productoExistente.tipo = tipo || productoExistente.tipo;
@@ -74,9 +75,9 @@ const updateProducto = async (req, res) => {
     productoExistente.precio = precio || productoExistente.precio;
     productoExistente.imagen = imagen || productoExistente.imagen;
 
-    await productoExistente.save();
+    const productoGuardado = await productoExistente.save();
 
-    res.json({ message: 'producto existente actualizado correctamente', productoExistente: productoExistente });
+    res.json({ message: 'Producto actualizado correctamente', productoGuardado});
   } catch (error) {
     console.error('Error al actualizar Producto:', error.message);
     res.status(500).json({ error: error.message });
