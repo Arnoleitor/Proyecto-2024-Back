@@ -73,11 +73,16 @@ const updateProducto = async (req, res) => {
     productoExistente.tipo = tipo || productoExistente.tipo;
     productoExistente.descripcion = descripcion || productoExistente.descripcion;
     productoExistente.precio = precio || productoExistente.precio;
-    productoExistente.imagen = imagen || productoExistente.imagen;
+
+    const { thumbUrl } = imagen.file || {};
+
+    const base64Data = thumbUrl.split(',')[1];
+
+    productoExistente.imagen = base64Data || productoExistente.imagen;
 
     const productoGuardado = await productoExistente.save();
 
-    res.json({ message: 'Producto actualizado correctamente', productoGuardado});
+    res.json({ message: 'Producto actualizado correctamente', productoGuardado });
   } catch (error) {
     console.error('Error al actualizar Producto:', error.message);
     res.status(500).json({ error: error.message });
