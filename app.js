@@ -12,6 +12,7 @@ const pedidosRoutes = require('./app/routes/pedidosRoutes');
 const tiposProductoRoutes = require('./app/routes/tiposProductoRoutes');
 const productRoutes = require('./app/routes/productRoutes');
 const comentariosRoutes = require('./app/routes/comentariosRoutes');
+const ticketRoutes = require('./app/routes/ticketRoutes');
 
 // Configuración del límite de tamaño a 10 MB
 app.use(express.json({ limit: '10mb' }));
@@ -60,6 +61,10 @@ const db = mongoose.connection;
 
   // Ruta de comentarios
   app.use('/api', comentariosRoutes);
+
+  //Ruta tickets
+  app.use('/api', ticketRoutes);
+
 
   // Middleware para manejo de errores
   app.use((err, req, res, next) => {
