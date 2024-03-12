@@ -58,6 +58,9 @@ const responderTicket = async (req, res) => {
     if (respuesta !== undefined) {
       // Actualiza la respuesta solo si se proporciona una nueva respuesta
       ticketExistente.respuesta = respuesta;
+
+      // fecha de respuesta
+      ticketExistente.fechaRespuesta = Date.now();
     }
 
     await ticketExistente.save();
@@ -68,5 +71,6 @@ const responderTicket = async (req, res) => {
     res.status(500).json({ error: 'Error al responder al ticket' });
   }
 };
+
 
 module.exports = { getAllTickets,  crearTicket, getTicketsPorIdUsuario, responderTicket };

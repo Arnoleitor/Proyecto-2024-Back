@@ -9,6 +9,10 @@ const ticketSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
 },
+fechaRespuesta: {
+  type: Date,
+  default: null,
+},
   estado: { type: String, default: 'Abierto' },
 });
 
