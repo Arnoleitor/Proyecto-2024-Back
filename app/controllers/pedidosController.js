@@ -48,7 +48,7 @@ if (factura[0]?.productos?.length) {
     let elemento = `
       <div style="text-align: left; margin-bottom: 10px; border-bottom: 1px solid #000;">
         <p>Unidad/es: x ${element.cantidad} - ${element.descripcion} </p>
-        <p style="text-align: right;">Precio por unidad: <strong>${element.precio} €</strong> - Precio total: <strong>${precioTotal} €</strong></p>
+        <p style="text-align: right;">Precio por unidad: <strong>${element.precio.toFixed(2)} €</strong> - Precio total: <strong>${precioTotal.toFixed(2)} €</strong></p>
       </div>`;
     productosHtmlElement += elemento;
   });
@@ -64,7 +64,7 @@ let contenido = `
       <p>Fecha: ${new Date().toLocaleDateString()}</p>
       <h5>Dirección de envío: ${factura[0].tipoVia} ${factura[0].direccion}</h5>
       ${productosHtmlElement}
-      <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte} € IVA Inc.</h3>
+      <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].totalImporte.toFixed(2)} € IVA Inc.</h3>
       <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
       <p style="text-align: left; font-size: 10px; margin-top: 5px;">Ten este identificador a mano en el caso que necesites ayuda con el pedido.</p>
       <p style="text-align: right; margin-top: 10px;">Teléfono de contacto: 999777666</p>

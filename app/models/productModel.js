@@ -5,7 +5,9 @@ const productSchema = new mongoose.Schema({
   descripcion: String,
   precio: Number,
   imagen: String,
-});
+  descuento: { type: Number, default: 0},
+  tieneDescuento: { type: Boolean, default: false}
+})
 
 const Producto = mongoose.model('componentes', productSchema);
 

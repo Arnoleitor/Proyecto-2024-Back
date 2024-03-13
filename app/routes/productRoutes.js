@@ -6,7 +6,7 @@ const upload = multer.memoryStorage();
 
 router.post('/agregarproducto', productController.postProducto);
 router.get('/productosPorTipo/:tipo', productController.getProductosPorTipo);
-
+router.post('/productosconDescuento/:id', productController.postProductoConDescuento);
 
 
 router.post('/agregarproductoExcel', multer({ storage: upload }).single('file'), async (req, res) => {
