@@ -15,7 +15,8 @@ const pedidosSchema = new mongoose.Schema({
     },
     direccion: String,
     tipoVia:String,
-    descuento:Number
+    descuento:Number,
+    codigo:String
 });
 
 const Pedidos = mongoose.model('pedidos', pedidosSchema);

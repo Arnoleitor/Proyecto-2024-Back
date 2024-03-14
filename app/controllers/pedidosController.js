@@ -63,6 +63,7 @@ let contenido = `
       <h3 style="text-align: center; text-decoration: underline; font-weight: bold;">FACTURA</h3>
       <p>Fecha: ${new Date().toLocaleDateString()}</p>
       <h5>Dirección de envío: ${factura[0].tipoVia} ${factura[0].direccion}</h5>
+      ${factura[0].codigo ? `<h5>Código promocional: ${factura[0].codigo} - ${factura[0].descuento}%</h5>` : ''}
       ${productosHtmlElement}
       <h3 style="text-align: right; margin-top: 20px;">Importe total: ${factura[0].descuento ? `-${factura[0].descuento}% = ${factura[0].totalImporte.toFixed(2)} € IVA Inc.` : `${factura[0].totalImporte.toFixed(2)} € IVA Inc.`}</h3>
       <p style="text-align: left; margin-top: 20px;">Id de la factura: <span style="font-weight: bold;">${_id}</span></p>
