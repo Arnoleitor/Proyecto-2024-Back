@@ -23,7 +23,7 @@ const getPedidos = async (req, res) => {
 //Recibir los productos
 const getProductos = async (req, res) => {
   try {
-    const productos = await Producto.find({});
+    const productos = await Producto.find({}, 'descripcion precio descuento');
 
     const productosConImagenBase64 = productos.map(producto => {
       const imagenBase64 = producto.imagen.toString('base64');
