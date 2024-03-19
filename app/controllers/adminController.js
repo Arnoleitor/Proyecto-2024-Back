@@ -3,7 +3,7 @@ const Producto = require('../models/productModel');
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find({}, 'username email Roles direccion tipoVia');
+    const users = await User.find({}, 'username email Roles direccion tipoVia monedero');
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });

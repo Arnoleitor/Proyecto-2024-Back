@@ -6,7 +6,11 @@ const userSchema = new mongoose.Schema({
     password: String,
     Roles: Number,
     direccion: String,
-    tipoVia: String
+    tipoVia: String,
+    monedero: {
+        type: Number,
+        default: 0
+      }
 });
 
 const Users = mongoose.model('users', userSchema);
