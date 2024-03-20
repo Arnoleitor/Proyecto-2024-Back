@@ -71,7 +71,7 @@ const db = mongoose.connection;
   //Ruta codigosDescuento
   app.use('/api', codigosDescuentoRoutes);
 
-   //Ruta monedero
+  //Ruta monedero
    app.use('/api', monederoRoutes);
 
   // Middleware para manejo de errores
