@@ -2,46 +2,67 @@ const Producto = require('../models/productModel');
 const ExcelJS = require('exceljs');
 
 const postProducto = async (req, res) => {
-    try {
-      const newProducto = new Producto(req.body);
-      await newProducto.save();
-      res.json(newProducto);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
+  try {
+    const newProducto = new Producto(req.body);
+    await newProducto.save();
+    res.json(newProducto);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-  const postProductoConDescuento = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { descuento } = req.body;
-  
-      if (!id || isNaN(descuento) || descuento < 0 || descuento > 100) {
-        return res.status(400).json({ error: 'Parámetros no válidos' });
-      }
-  
-      const producto = await Producto.findById(id);
-  
-      if (!producto) {
-        return res.status(404).json({ error: 'Producto no encontrado' });
-      }
-  
-      // Nuevo precio con descuento
-      const precioConDescuento = producto.precio - (producto.precio * (descuento / 100));
-  
-      // Actualiza solo el descuento y el precio con descuento
-      producto.descuento = descuento;
-      producto.precioConDescuento = precioConDescuento;
-      producto.tieneDescuento = true;
-  
-      await producto.save();
-  
-      res.json(producto);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+const postProductoConDescuento = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { descuento } = req.body;
+
+    if (!id || isNaN(descuento) || descuento < 0 || descuento > 100) {
+      return res.status(400).json({ error: 'Parámetros no válidos' });
     }
-  };
-  
+
+    const producto = await Producto.findById(id);
+
+    if (!producto) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    // Nuevo precio con descuento
+    const precioConDescuento = producto.precio - (producto.precio * (descuento / 100));
+
+    // Actualiza solo el descuento y el precio con descuento
+    producto.descuento = descuento;
+    producto.precioConDescuento = precioConDescuento;
+    producto.tieneDescuento = true;
+
+    await producto.save();
+
+    res.json(producto);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteDescuentoProducto = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const producto = await Producto.findById(id);
+
+    if (!producto) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    // Elimina el descuento y establece tieneDescuento en false
+    producto.descuento = 0;
+    producto.tieneDescuento = false;
+
+    await producto.save();
+
+    res.json(producto);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 // Recibir los productos por tipo
 const getProductosPorTipo = async (req, res) => {
@@ -77,7 +98,7 @@ const processExcelAndAddProducts = async (buffer) => {
       const precio = parseFloat(row.getCell('C').value);
       const imagen = row.getCell('D').value;
 
-      if (!isNaN(tipo) && !isNaN(precio) && Number(precio)  && Number(tipo)) {
+      if (!isNaN(tipo) && !isNaN(precio) && Number(precio) && Number(tipo)) {
         await Producto.create({
           tipo,
           descripcion,
@@ -94,8 +115,4 @@ const processExcelAndAddProducts = async (buffer) => {
   });
 };
 
-
-
-
-
-module.exports = { postProducto, getProductosPorTipo, processExcelAndAddProducts, postProductoConDescuento };
+module.exports = { postProducto, getProductosPorTipo, processExcelAndAddProducts, postProductoConDescuento, deleteDescuentoProducto };
