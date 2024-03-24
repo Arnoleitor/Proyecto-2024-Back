@@ -15,6 +15,7 @@ const comentariosRoutes = require('./app/routes/comentariosRoutes');
 const ticketRoutes = require('./app/routes/ticketRoutes');
 const codigosDescuentoRoutes = require('./app/routes/codigosDescuentoRoutes');
 const monederoRoutes = require('./app/routes/monederoRoutes');
+const contactoRoutes = require('./app/routes/contactoRoutes');
 
 
 // Configuración del límite de tamaño a 10 MB
@@ -73,6 +74,9 @@ const db = mongoose.connection;
 
   //Ruta monedero
    app.use('/api', monederoRoutes);
+
+   //Ruta contacto
+   app.use('/api', contactoRoutes);
 
   // Middleware para manejo de errores
   app.use((err, req, res, next) => {
