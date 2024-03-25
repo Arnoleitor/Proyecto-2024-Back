@@ -3,13 +3,22 @@ const ExcelJS = require('exceljs');
 
 const postProducto = async (req, res) => {
   try {
-    const newProducto = new Producto(req.body);
+    const newProductoData = req.body;
+    const newProducto = new Producto(newProductoData);
+
+    // Guardar el precio actual como histórico
+    newProducto.historico = {
+      precio: newProducto.precio,
+      fechaPrecio: new Date(),
+    };
+
     await newProducto.save();
     res.json(newProducto);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 const postProductoConDescuento = async (req, res) => {
   try {

@@ -23,7 +23,7 @@ const getPedidos = async (req, res) => {
 //Recibir los productos
 const getProductos = async (req, res) => {
   try {
-    const productos = await Producto.find({}, 'tipo descripcion precio imagen descuento tieneDescuento _id');
+    const productos = await Producto.find({}, 'tipo descripcion precio imagen descuento tieneDescuento _id historico');
 
     const productosConImagenBase64 = productos.map(producto => {
       const imagenBase64 = producto.imagen.toString('base64');
@@ -70,15 +70,23 @@ const updateProducto = async (req, res) => {
       return res.status(404).json({ message: 'Producto existente no encontrado' });
     }
 
+    // Guardar el precio actual en el historial antes de actualizarlo
+    productoExistente.historico.push({
+      precio: productoExistente.precio,
+      fechaPrecio: new Date(),
+    });
+
     productoExistente.tipo = tipo || productoExistente.tipo;
     productoExistente.descripcion = descripcion || productoExistente.descripcion;
     productoExistente.precio = precio || productoExistente.precio;
 
-    const { thumbUrl } = imagen.file || {};
-
-    const base64Data = thumbUrl.split(',')[1];
-
-    productoExistente.imagen = base64Data || productoExistente.imagen;
+    if (imagen && imagen.file) {
+      const { thumbUrl } = imagen.file;
+      if (thumbUrl) {
+        const base64Data = thumbUrl.split(',')[1];
+        productoExistente.imagen = base64Data || productoExistente.imagen;
+      }
+    }
 
     const productoGuardado = await productoExistente.save();
 
@@ -88,6 +96,7 @@ const updateProducto = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Eliminar un usuario por ID
 const deleteUser = async (req, res) => {

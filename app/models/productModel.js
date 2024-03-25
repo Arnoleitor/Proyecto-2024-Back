@@ -6,9 +6,17 @@ const productSchema = new mongoose.Schema({
   precio: Number,
   imagen: String,
   descuento: { type: Number, default: 0},
-  tieneDescuento: { type: Boolean, default: false}
-})
+  tieneDescuento: { type: Boolean, default: false},
+  historico: [{
+    precio: Number,
+    fechaPrecio: {
+      type: Date,
+      default: null,
+    },
+  }]
+});
 
 const Producto = mongoose.model('componentes', productSchema);
 
 module.exports = Producto;
+
